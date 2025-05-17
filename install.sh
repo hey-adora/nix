@@ -1,6 +1,7 @@
 #!/bin/sh
 
 sudo mount -o remount,size=10G,noatime /nix/.rw-store
+mkdir -p /tmp/config/etc
 nixos-generate-config --root . --no-filesystems
 rm ./etc/nixos/configuration.nix 
 cp configuration.nix ./etc/nixos/configuration.nix
