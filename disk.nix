@@ -7,9 +7,10 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
+            MBR = {
               size = "1M";
               type = "EF02"; # for grub MBR
+              priority = 1; # Needs to be first partition
             };
             ESP = {
               size = "512M";
@@ -47,28 +48,28 @@
                   type = "btrfs";
                   extraArgs = [ "-f" ];
                   subvolumes = {
-                    "/root" = {
+                    root = {
                       mountpoint = "/";
                       mountOptions = [
                         "compress=zstd"
                         "noatime"
                       ];
                     };
-                    "/home" = {
+                    home = {
                       mountpoint = "/home";
                       mountOptions = [
                         "compress=zstd"
                         "noatime"
                       ];
                     };
-                    "/nix" = {
+                    nix = {
                       mountpoint = "/nix";
                       mountOptions = [
                         "compress=zstd"
                         "noatime"
                       ];
                     };
-                    "/swap" = {
+                    swap = {
                       mountpoint = "/.swapvol";
                       swap.swapfile.size = "20M";
                     };
