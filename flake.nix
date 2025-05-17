@@ -13,11 +13,13 @@
 {
   inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
   inputs.home-manager.url = github:nix-community/home-manager;
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, home-manager, ... }@attrs: {
-    nixosConfigurations.fnord = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager, ... }@ inputs: let
+    inherit (self) outputs; in {
+    nixosConfigurations.adora = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = attrs;
+      specialArgs = {inherit inputs outputs home-manager};
       modules = [ ./configuration.nix ];
     };
   };
