@@ -2,15 +2,9 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
-let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-in
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+{ config, lib, nixpkgs, home-manager, ... }: {
+  # do something with home-manager here, for instance:
+  imports = [ home-manager.nixosModules.default ./hardware-configuration.nix ];
 
   # Use the GRUB 2 boot loader.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
