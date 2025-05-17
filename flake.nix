@@ -6,17 +6,17 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self,  disko, nixpkgs, home-manager }: {
-    nixosConfigurations.adora = {
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.hey = ./home.nix;
-          }
-        ];
-    };
+    # nixosConfigurations.adora = {
+    #     modules = [
+    #       ./configuration.nix
+    #       home-manager.nixosModules.home-manager
+    #       {
+    #         home-manager.useGlobalPkgs = true;
+    #         home-manager.useUserPackages = true;
+    #         home-manager.users.hey = ./home.nix;
+    #       }
+    #     ];
+    # };
     nixosConfigurations.mymachine = nixpkgs.legacyPackages.x86_64-linux.nixos [
       # {
       #   nixosConfigurations = {
@@ -39,6 +39,7 @@
       #   #   };
       #   # };
       # }
+      ./configuration.nix
       disko.nixosModules.disko
       {
         disko.devices = {
