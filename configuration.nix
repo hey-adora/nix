@@ -2,9 +2,9 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, nixpkgs, home-manager, ... }: {
+{ config, lib, nixpkgs, ... }: {
   # do something with home-manager here, for instance:
-  imports = [ (import "${home-manager}/nixos") ./hardware-configuration.nix ];
+  imports = [ <home-manager/nixos> ./hardware-configuration.nix ];
 
   # Use the GRUB 2 boot loader.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

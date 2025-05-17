@@ -19,7 +19,7 @@
     inherit (self) outputs; in {
     nixosConfigurations.adora = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = {inherit inputs outputs home-manager};
+      specialArgs = {inherit inputs outputs };
       modules = [ ./configuration.nix ];
     };
   };
