@@ -4,7 +4,7 @@
 
 { config, lib, nixpkgs, home-manager, ... }: {
   # do something with home-manager here, for instance:
-  imports = [ home-manager.nixosModules.default ./hardware-configuration.nix ];
+  imports = [  ./hardware-configuration.nix ];
 
   # Use the GRUB 2 boot loader.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -84,14 +84,14 @@
     };
   };
 
-  home-manager.users.hey = { pkgs, ... }: {
-    home.packages = [ pkgs.atool pkgs.httpie ];
-    programs.bash.enable = true;
+  # home-manager.users.hey = { pkgs, ... }: {
+  #   home.packages = [ pkgs.atool pkgs.httpie ];
+  #   programs.bash.enable = true;
   
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "24.11";
-  };
+  #   # The state version is required and should stay at the version you
+  #   # originally installed.
+  #   home.stateVersion = "24.11";
+  # };
 
   # programs.firefox.enable = true;
 
