@@ -2,7 +2,7 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   inputs.disko.url = "github:nix-community/disko/latest";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
+  inputs.home-manager.url = "github:nix-community/home-manager/latest";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self,  disko, nixpkgs, home-manager }: {
