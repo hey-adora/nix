@@ -5,7 +5,7 @@
   inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, disko, nixpkgs, home-manager }: {
+  outputs = {  disko, nixpkgs, home-manager, outputs, inputs }: {
     nixosConfigurations.mymachine = nixpkgs.legacyPackages.x86_64-linux.nixos [
       disko.nixosModules.disko
       {
