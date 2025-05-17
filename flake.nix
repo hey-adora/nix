@@ -6,38 +6,40 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self,  disko, nixpkgs, home-manager }: {
+    nixosConfigurations.adora = {
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hey = ./home.nix;
+          }
+        ];
+    };
     nixosConfigurations.mymachine = nixpkgs.legacyPackages.x86_64-linux.nixos [
-      disko.nixosModules.disko
-      {
-        nixosConfigurations = {
-          # FIXME replace with your hostname
-          adora = nixpkgs.lib.nixosSystem {
-            # specialArgs = {inherit inputs outputs;};
-            # > Our main nixos configuration file <
-            modules = [
-              ./configuration.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.hey = ./home.nix;
-              }
-            ];
-          };
-        };
+      # {
+      #   nixosConfigurations = {
+      #     # FIXME replace with your hostname
+      #     adora = nixpkgs.lib.nixosSystem {
+      #       # specialArgs = {inherit inputs outputs;};
+      #       # > Our main nixos configuration file <
+      #     };
+      #   };
 
-        # Standalone home-manager configuration entrypoint
-        # Available through 'home-manager --flake .#your-username@your-hostname'
-        # homeConfigurations = {
-        #   # FIXME replace with your username@hostname
-        #   "hey@adora" = home-manager.lib.homeManagerConfiguration {
-        #     pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        #     # extraSpecialArgs = {inherit inputs outputs;};
-        #     # > Our main home-manager configuration file <
-        #     modules = [./home.nix];
-        #   };
-        # };
-      }
+      #   # Standalone home-manager configuration entrypoint
+      #   # Available through 'home-manager --flake .#your-username@your-hostname'
+      #   # homeConfigurations = {
+      #   #   # FIXME replace with your username@hostname
+      #   #   "hey@adora" = home-manager.lib.homeManagerConfiguration {
+      #   #     pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #   #     # extraSpecialArgs = {inherit inputs outputs;};
+      #   #     # > Our main home-manager configuration file <
+      #   #     modules = [./home.nix];
+      #   #   };
+      #   # };
+      # }
+      disko.nixosModules.disko
       {
         disko.devices = {
           disk = {
