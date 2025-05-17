@@ -4,7 +4,7 @@
 
 { config, lib, nixpkgs, home-manager, ... }: {
   # do something with home-manager here, for instance:
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ (import "${home-manager}/nixos") ./hardware-configuration.nix ];
 
   # Use the GRUB 2 boot loader.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
