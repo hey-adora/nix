@@ -11,4 +11,4 @@ cp flake.nix /tmp/config/etc/nixos/flake.nix
 # rmdir ./etc/nixos
 # rmdir ./etc
 #sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./disk.nix
-sudo nix --experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --flake '/tmp/config/etc/nixos#mymachine' --disk main /dev/vda --extra-files /tmp/config/etc/nixos/flake.nix /etc/nixos/flake.nix
+sudo nix --experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --flake '/tmp/config/etc/nixos#mymachine' --disk main /dev/vda --extra-files /tmp/config/etc/nixos/flake.nix /etc/nixos/flake.nix --extra-files /tmp/config/etc/nixos/configuration.nix /etc/nixos/configuration.nix --extra-files /tmp/config/etc/nixos/home.nix /etc/nixos/home.nix --extra-files /tmp/config/etc/nixos/hardware-configuration.nix /etc/nixos/hardware-configuration.nix
