@@ -1,7 +1,7 @@
 #!/bin/sh
 lsblk
 echo "select /dev/<disk>: "
-# read $disk
+read $disk
 # sudo mount -o remount,size=10G,noatime /nix/.rw-store
 # rm -r /tmp/config
 # nixos-generate-config --root /tmp/config --no-filesystems
