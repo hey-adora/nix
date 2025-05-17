@@ -5,14 +5,14 @@
   inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self,  disko, nixpkgs, home-manager, outputs, inputs }: {
+  outputs = { self,  disko, nixpkgs, home-manager }: {
     nixosConfigurations.mymachine = nixpkgs.legacyPackages.x86_64-linux.nixos [
       disko.nixosModules.disko
       {
         nixosConfigurations = {
           # FIXME replace with your hostname
           adora = nixpkgs.lib.nixosSystem {
-            specialArgs = {inherit inputs outputs;};
+            # specialArgs = {inherit inputs outputs;};
             # > Our main nixos configuration file <
             modules = [./configuration.nix];
           };
@@ -24,7 +24,7 @@
           # FIXME replace with your username@hostname
           "hey@adora" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-            extraSpecialArgs = {inherit inputs outputs;};
+            # extraSpecialArgs = {inherit inputs outputs;};
             # > Our main home-manager configuration file <
             modules = [./home.nix];
           };
