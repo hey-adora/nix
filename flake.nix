@@ -22,5 +22,14 @@
       specialArgs = {inherit inputs outputs };
       modules = [ ./configuration.nix ];
     };
+    homeConfigurations = {
+      # FIXME replace with your username@hostname
+      "hey@adora" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs;};
+        # > Our main home-manager configuration file <
+        modules = [./home.nix];
+      };
+    };
   };
 }

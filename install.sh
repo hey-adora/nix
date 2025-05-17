@@ -13,5 +13,6 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 sudo nixos-generate-config --root /mnt
 sudo rm /mnt/etc/nixos/configuration.nix
 sudo cp configuration.nix /mnt/etc/nixos/configuration.nix
+sudo cp home.nix /mnt/etc/nixos/home.nix
 sudo cp flake.nix /mnt/etc/nixos/flake.nix
 sudo nixos-install
