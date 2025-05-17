@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sudo mount -o remount,size=10G,noatime /nix/.rw-store
-mkdir -p /tmp/config/etc
+mkdir /tmp/config
 nixos-generate-config --root . --no-filesystems
 rm ./etc/nixos/configuration.nix 
 cp configuration.nix ./etc/nixos/configuration.nix
@@ -11,4 +11,4 @@ mv ./etc /tmp/config/etc
 # rmdir ./etc/nixos
 # rmdir ./etc
 #sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./disk.nix
-sudo nix --experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --flake '.#mymachine' --disk main /dev/vda
+sudo nix --experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --flake '/tmp/config/etc/nixos#mymachine' --disk main /dev/vda
