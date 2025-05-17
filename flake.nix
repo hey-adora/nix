@@ -6,39 +6,7 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self,  disko, nixpkgs, home-manager }: {
-    # nixosConfigurations.adora = {
-    #     modules = [
-    #       ./configuration.nix
-    #       home-manager.nixosModules.home-manager
-    #       {
-    #         home-manager.useGlobalPkgs = true;
-    #         home-manager.useUserPackages = true;
-    #         home-manager.users.hey = ./home.nix;
-    #       }
-    #     ];
-    # };
     nixosConfigurations.mymachine = nixpkgs.legacyPackages.x86_64-linux.nixos [
-      # {
-      #   nixosConfigurations = {
-      #     # FIXME replace with your hostname
-      #     adora = nixpkgs.lib.nixosSystem {
-      #       # specialArgs = {inherit inputs outputs;};
-      #       # > Our main nixos configuration file <
-      #     };
-      #   };
-
-      #   # Standalone home-manager configuration entrypoint
-      #   # Available through 'home-manager --flake .#your-username@your-hostname'
-      #   # homeConfigurations = {
-      #   #   # FIXME replace with your username@hostname
-      #   #   "hey@adora" = home-manager.lib.homeManagerConfiguration {
-      #   #     pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #   #     # extraSpecialArgs = {inherit inputs outputs;};
-      #   #     # > Our main home-manager configuration file <
-      #   #     modules = [./home.nix];
-      #   #   };
-      #   # };
-      # }
       ./configuration.nix
       disko.nixosModules.disko
       {
@@ -65,28 +33,14 @@
                       mountOptions = [ "umask=0077" ];
                     };
                   };
-                  # ESP = {
-                  #   size = "512M";
-                  #   type = "EF00";
-                  #   content = {
-                  #     type = "filesystem";
-                  #     format = "vfat";
-                  #     mountpoint = "/boot";
-                  #     mountOptions = [ "umask=0077" ];
-                  #   };
-                  # };
                   luks = {
                     size = "100%";
                     content = {
                       type = "luks";
                       name = "crypted";
-                      # disable settings.keyFile if you want to use interactive password entry
-                      #passwordFile = "/tmp/secret.key"; # Interactive
                       settings = {
                         allowDiscards = true;
-                      #   keyFile = "/tmp/secret.key";
                       };
-                      # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
                       content = {
                         type = "btrfs";
                         extraArgs = [ "-f" ];
