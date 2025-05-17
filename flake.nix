@@ -6,7 +6,7 @@
   outputs = { self,  disko, nixpkgs }: {
     nixosConfigurations.adora = nixpkgs.legacyPackages.x86_64-linux.nixos [
       {
-        modules = [ ./configuration.nix ]
+        modules = [ ./configuration.nix ];
       }
       disko.nixosModules.disko
       {
