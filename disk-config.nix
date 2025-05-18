@@ -27,6 +27,7 @@
               content = {
                 type = "luks";
                 name = "crypted";
+                extraArgs = [ "--type luks1" ];
                 settings = {
                   allowDiscards = true;
                 };
