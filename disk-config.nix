@@ -29,7 +29,7 @@
                 name = "crypted";
                 settings = {
                   allowDiscards = true;
-                  type = "luks";
+                  type = "luks1";
                   # extraArgs = [ "--type luks1" ];
                 };
                 content = {
