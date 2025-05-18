@@ -12,16 +12,16 @@
               type = "EF02"; # for grub MBR
               priority = 1; # Needs to be first partition
             };
-            ESP = {
-              size = "512M";
-              type = "EF00";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
-              };
-            };
+            # ESP = {
+            #   size = "512M";
+            #   type = "EF00";
+            #   content = {
+            #     type = "filesystem";
+            #     format = "vfat";
+            #     mountpoint = "/boot";
+            #     mountOptions = [ "umask=0077" ];
+            #   };
+            # };
             luks = {
               size = "100%";
               content = {
