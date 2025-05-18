@@ -27,9 +27,10 @@
               content = {
                 type = "luks";
                 name = "crypted";
+                extraFormatArgs = "--type luks1";
                 settings = {
                   allowDiscards = true;
-                  version = "luks1";
+                  # version = "luks1";
                   # extraArgs = [ "--type luks1" ];
                 };
                 content = {
