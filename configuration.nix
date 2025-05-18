@@ -16,6 +16,14 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.enableCryptodisk = true;
+
+  boot.initrd.luks.devices = {
+    crypted = {
+      device = "/dev/disk/by-partlabel/disk-main-luks";
+      # preLVM = true;
+    };
+  };
+
   # boot.loader.grub.useOSProber = true;
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
