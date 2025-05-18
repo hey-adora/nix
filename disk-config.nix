@@ -29,7 +29,8 @@
                 name = "crypted";
                 settings = {
                   allowDiscards = true;
-                  extraArgs = [ "--type luks1" ];
+                  type = "luks";
+                  # extraArgs = [ "--type luks1" ];
                 };
                 content = {
                   type = "btrfs";
