@@ -24,10 +24,10 @@
             # };
             luks = {
               size = "100%";
+              extraArgs = [ "--type luks1" ];
               content = {
                 type = "luks";
                 name = "crypted";
-                extraArgs = [ "--type luks1" ];
                 settings = {
                   allowDiscards = true;
                 };
