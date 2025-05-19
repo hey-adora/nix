@@ -10,9 +10,6 @@
       ./hardware-configuration.nix
     ];
 
-  nix.settings.experimental-features = "nix-command flakes";
-  nix.settings.auto-optimise-store = true;
-
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sdb";
@@ -24,13 +21,7 @@
   # Define on which hard drive you want to install Grub.
   # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
-  boot.initrd.secrets = {
-    "/boot/crypto_keyfile.bin" = null;
-  };
-
-  boot.initrd.luks.devices.crypted.keyFile = "/boot/crypto_keyfile.bin";
-
-  networking.hostName = "adora"; # Define your hostname.
+  # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -57,7 +48,6 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  services.gnome.gnome-browser-connector.enable = true;
   
 
   # Configure keymap in X11
@@ -85,9 +75,6 @@
       # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
     ];
     extraGroups = ["wheel"];
-    packages = with pkgs; [
-        home-manager
-    ];
   };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.users.alice = {
@@ -102,21 +89,10 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
-
-  environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #wget
-    zsh
-    wl-clipboard
-  ];
-
-  environment.etc.crypttab.mode = "0600";
-  environment.etc.crypttab.text = ''
-    hdd3           UUID=3466d7cf-6769-43e2-9293-2080eca0cd47    /boot/crypto_keyfile.bin
-    hdd1           UUID=a45f1e82-bf48-4b38-8481-84a442cfa31f    /boot/hddkey
-    hdd2           UUID=9b46e655-a653-4683-8cfa-d21c5e08fdaf    /boot/hddkey
-  '';
+  # environment.systemPackages = with pkgs; [
+  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #   wget
+  # ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
