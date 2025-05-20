@@ -15,10 +15,42 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
+  zramSwap.enable = true;
+
   nix.settings.experimental-features = "nix-command flakes";
   nix.settings.auto-optimise-store = true;
 
+  # systemd.tmpfiles.rules = [
+  #   "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  # ];
+
+  nixpkgs.config.nvidia.acceptLicense = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.powerManagement.enable = false;
+  hardware.nvidia.powerManagement.finegrained = false;
+  hardware.nvidia.open = true;
+  hardware.nvidia.nvidiaSettings = true;
+
+  hardware.opengl.extraPackages = with pkgs; [
+    rocmPackages.clr.icd
+  ];
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true; # For 32 bit applications
+
+  boot.kernelParams = [
+    "radeon.si_support=0"
+    "amdgpu.si_support=1"
+    "radeon.cik_support=0"
+    "amdgpu.cik_support=1"
+  ];
+
   # Use the GRUB 2 boot loader.
+  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_3_10;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sdb";
   boot.loader.grub.useOSProber = true;
@@ -39,13 +71,13 @@
   boot.initrd.luks.devices.hdd1.keyFile = "/boot/hddkey";
   boot.initrd.luks.devices.hdd2.keyFile = "/boot/hddkey";
 
-  fileSystems."/mnt/hdd1".depends = [ "/" ];
+  # fileSystems."/mnt/hdd1".depends = [ "/" ];
   #fileSystems."/mnt/hdd1".pass = 2;
 
   networking.hostName = "adora"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
@@ -55,20 +87,26 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
+    # useXkbConfig = true; # use xkb.options in tty.
+  };
 
   # Enable the X11 windowing system.
+  services.xserver.videoDrivers = [
+    "nvidia"
+    "amdgpu"
+  ];
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.gnome.gnome-browser-connector.enable = true;
+
+  services.flatpak.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -87,6 +125,10 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
+
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = [ "hey" ];
+  virtualisation.libvirtd.enable = true;
 
   users.users.hey = {
     initialPassword = "home";
@@ -120,6 +162,9 @@
     zsh
     git
     wl-clipboard
+    clinfo
+    vulkan-tools
+    # blender-hip
   ];
 
   # environment.etc.crypttab.mode = "0600";
