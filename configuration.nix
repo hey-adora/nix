@@ -34,9 +34,9 @@
   hardware.nvidia.open = true;
   hardware.nvidia.nvidiaSettings = true;
 
-  hardware.opengl.extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-  ];
+  # hardware.opengl.extraPackages = with pkgs; [
+  #   rocmPackages.clr.icd
+  # ];
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true; # For 32 bit applications
 
